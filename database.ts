@@ -1,4 +1,6 @@
-import { Sequelize } from "sequelize";
+// import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
+import User from "./models/user.model";
 
 const sequelize = new Sequelize({
     dialect: 'mysql',
@@ -6,8 +8,12 @@ const sequelize = new Sequelize({
     database: 'stack_overflow',
     host: 'localhost',
     port: 8889,
-    password: 'J7@PfzP9_Z)GV09J'  
+    password: 'J7@PfzP9_Z)GV09J',
+
+
   });
+
+
 
   (async () => {
     try {
@@ -18,6 +24,10 @@ const sequelize = new Sequelize({
       console.error('Unable to connect to the database:', error);
     }
   })();
+
+  sequelize.addModels([User])
+
+
 
 
   export default sequelize
