@@ -3,6 +3,8 @@ import { Sequelize } from "sequelize-typescript";
 import User from "./models/user.model";
 import Question from "./models/question.model";
 import Answer from "./models/answer.model";
+import Rating from "./models/rating.model";
+import Subscription from "./models/subscription.module";
 
 const sequelize = new Sequelize({
     dialect: 'mysql',
@@ -27,7 +29,7 @@ const sequelize = new Sequelize({
     }
   })();
 
-  sequelize.addModels([User,Question, Answer])
+  sequelize.addModels([User,Question, Answer,Rating, Subscription])
 
 
 
