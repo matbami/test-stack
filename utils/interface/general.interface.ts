@@ -21,6 +21,22 @@ export interface AnswerInterface{
    
 }
 
+export interface RatingInterface{
+    targetType: string,
+    targetId: string,
+    userId: string
+    value: string
+   
+}
+
+export interface SubscriptionInterface{
+
+    userId: string,
+    questionId: string
+   
+   
+}
+
 export interface AnswerUpdateInterface{
     body?: string,
    
