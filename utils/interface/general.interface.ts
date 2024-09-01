@@ -9,6 +9,28 @@ export interface UserInterface{
     password: string
 }
 
+export interface QuestionInterface{
+    title: string
+    body: string,
+    userId: string
+}
+
+export interface AnswerInterface{
+    body: string,
+    questionId: string
+   
+}
+
+export interface AnswerUpdateInterface{
+    body?: string,
+   
+}
+
+export interface QuestionUpdateInterface{
+    title?: string
+    body?: string,
+}
+
 export interface LoginInterface{
     email: string
     password: string

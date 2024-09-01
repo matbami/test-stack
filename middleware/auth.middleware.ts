@@ -4,8 +4,8 @@ import User from '../models/user.model';
 import dotenv from 'dotenv'
 dotenv.config()
 
-interface AuthRequest extends Request {
-    user?: any;
+export interface AuthRequest extends Request {
+    user?: User;
 }
 
 const authenticate = async (req: AuthRequest, res: Response, next: NextFunction) => {
