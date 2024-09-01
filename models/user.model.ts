@@ -17,7 +17,7 @@ class User extends Model {
 
   @PrimaryKey
   @IsUUID(4)
-  @Default(uuidv4) // Auto-generate UUID if not provided
+  @Default(uuidv4)
   @Column({ allowNull: false })
   id: string;
 

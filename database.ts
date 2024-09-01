@@ -1,6 +1,8 @@
 // import { Sequelize } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
 import User from "./models/user.model";
+import Question from "./models/question.model";
+import Answer from "./models/answer.model";
 
 const sequelize = new Sequelize({
     dialect: 'mysql',
@@ -25,7 +27,7 @@ const sequelize = new Sequelize({
     }
   })();
 
-  sequelize.addModels([User])
+  sequelize.addModels([User,Question, Answer])
 
 
 
