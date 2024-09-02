@@ -66,4 +66,12 @@ export class UserService {
       token,
     };
   }
+
+  async getUserbyId(id: string){
+    const user: User = await this.user.findByPk(id)
+    if(!user){
+        throw new AppError("User ", 401);
+    }
+    return user
+  }
 }

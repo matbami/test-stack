@@ -24,6 +24,21 @@ export class SubscriptionService {
     return await this.subscription.create(subscriptionDetails);
   }
 
+  async getSubscriptionByQuestionId(questionId: string, userId: string) {
+    //check if user has rated already
+
+    const subscription: Subscription = await this.subscription.findOne({
+      where: {
+        userId,
+        questionId
+      },
+    });
+
+    
+
+    return subscription
+  }
+
   async unSubscribe(id: string) {
     //check if user has rated already
 
