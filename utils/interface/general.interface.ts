@@ -17,7 +17,8 @@ export interface QuestionInterface{
 
 export interface AnswerInterface{
     body: string,
-    questionId: string
+    questionId: string,
+    userId: string
    
 }
 

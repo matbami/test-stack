@@ -4,11 +4,18 @@ import authenticate from '../middleware/auth.middleware';
 import { AnswerService } from '../services/answer.service';
 import { AnswerController } from '../controllers/answer.controller';
 import { createAnswerSchema, updateAnswerSchema } from '../validations/answer.validation';
+import { SubscriptionService } from '../services/subscription.service';
+import { UserService } from '../services/user.service';
+import { QuestionService } from '../services/question.service';
 
 
+// Create instances of the required services
+const subscriptionService = new SubscriptionService();
+const userService = new UserService
+const questionService = new QuestionService
 
 const answerRouter = Router();
-const answerService = new AnswerService(); // Create an instance of UserService
+const answerService = new AnswerService(subscriptionService,userService, questionService); // Create an instance of UserService
 const answerController = new AnswerController(answerService)
 
 /**
