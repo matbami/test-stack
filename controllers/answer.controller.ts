@@ -18,7 +18,11 @@ export class AnswerController {
 
   async getAnswersByQuestion(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const answers = await this.answerService.getAnswersByQuestion(req.params.id);
+        const pagination = {
+            page: Number(req.query.page) || 1,
+            limit: Number(req.query.limit) || 10,
+          };
+      const answers = await this.answerService.getAnswersByQuestion(req.params.questionId,pagination);
       return res.json({ answers, message: "Answers retrieved successfully" });
     } catch (error) {
       next(error);

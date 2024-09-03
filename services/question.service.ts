@@ -1,11 +1,13 @@
 import Question from "../models/question.model";
 import {
 
+    Pagination,
   QuestionInterface,
   QuestionUpdateInterface,
 
 } from "../utils/interface/general.interface";
 import { AppError } from "../helper/errorHandler";
+import { Paginate } from "../helper/pagination";
 
 
 export class QuestionService {
@@ -15,7 +17,7 @@ export class QuestionService {
   }
 
   async createQuestion(Question: QuestionInterface) {
-    console.log(Question)
+  
     return await this.question.create(Question);
 
   }
@@ -30,8 +32,19 @@ export class QuestionService {
 
   }
 
-  async getAllQuestions() {
-    return await this.question.findAll();
+  async getAllQuestions(pagination?: Pagination) {
+    const { page, limit, offset } = Paginate(pagination);
+
+    const [total, questions] = await Promise.all([this.question.count(),this.question.findAll({
+        limit,
+        offset
+    })])
+    return {
+        page,
+        limit,
+        total,
+        questions
+    }
   }
 
   async updateQuestions(id: string, updateDetails:QuestionUpdateInterface) {

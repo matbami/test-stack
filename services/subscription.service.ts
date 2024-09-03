@@ -1,6 +1,6 @@
 import { SubscriptionInterface } from "../utils/interface/general.interface";
 import { AppError } from "../helper/errorHandler";
-import Subscription from "../models/subscription.module";
+import Subscription from "../models/subscription.model";
 
 export class SubscriptionService {
   private subscription: typeof Subscription;

@@ -1,6 +1,6 @@
 export interface Pagination{
-    page?: string
-    limit?: string
+    page?: number
+    limit?: number
 }
 
 export interface UserInterface{
