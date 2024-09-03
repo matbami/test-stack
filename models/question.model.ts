@@ -14,12 +14,6 @@ import {
 } from "sequelize-typescript";
 import User from "./user.model";
 import { v4 as uuidv4 } from "uuid";
-import Answer from "./answer.model";
-import Rating from "./rating.model";
-import Subscription from "./subscription.model";
-// import { Answer } from './answer';
-// import { Rating } from './rating';
-// import { Subscription } from './subscription';
 
 @Table
 class Question extends Model<Question> {
