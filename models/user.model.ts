@@ -11,6 +11,10 @@ import {
   Default,
 } from "sequelize-typescript";
 import { v4 as uuidv4 } from 'uuid';
+import Answer from "./answer.model";
+import Rating from "./rating.model";
+import Subscription from "./subscription.model";
+import Question from "./question.model";
 
 @Table
 class User extends Model {
@@ -37,6 +41,18 @@ class User extends Model {
 
   @UpdatedAt
   updatedAt: Date;
+
+  @HasMany(() => Answer)
+  answers!: Answer[];
+
+  @HasMany(() => Rating)
+  ratings!: Rating[];
+
+  @HasMany(() => Subscription)
+  subscriptions!: Subscription[];
+
+  @HasMany(() => Question)
+  questions!: Question[];
 
 }
 

@@ -1,32 +1,28 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { validate} from '../middleware/validations';
+import { validate } from '../middleware/validations';
 import authenticate from '../middleware/auth.middleware';
 import { SubscriptionController } from '../controllers/subscription.controller';
 import { SubscriptionService } from '../services/subscription.service';
 import { subscriptionSchema } from '../validations/subscription.validation';
 
-
-
 const subscriptionRouter = Router();
-const subscriptionService = new SubscriptionService(); // Create an instance of UserService
-const subscriptionController = new SubscriptionController(subscriptionService)
+const subscriptionService = new SubscriptionService(); // Create an instance of SubscriptionService
+const subscriptionController = new SubscriptionController(subscriptionService);
 
 /**
- * @route POST /api/auth/register
- * @desc Register a new user (private)
+ * @route POST /api/subscriptions
+ * @desc Create a new subscription (authenticated)
  */
-subscriptionRouter.post('', authenticate, validate(subscriptionSchema),(req:Request, res: Response, next: NextFunction) =>
-subscriptionController.createSubscription(req, res, next));
+subscriptionRouter.post('', authenticate, validate(subscriptionSchema), (req: Request, res: Response, next: NextFunction) =>
+  subscriptionController.createSubscription(req, res, next)
+);
 
 /**
- * @route POST /api/auth/login
- * @desc Login user and return JWT(public)
+ * @route DELETE /api/subscriptions/:id
+ * @desc Unsubscribe from a subscription by ID (authenticated)
  */
-subscriptionRouter.delete('/:id', (req:Request, res: Response, next: NextFunction) =>
-subscriptionController.unsubscribe(req, res, next));
-
-
-
-
+subscriptionRouter.delete('/:id', authenticate, (req: Request, res: Response, next: NextFunction) =>
+  subscriptionController.unsubscribe(req, res, next)
+);
 
 export default subscriptionRouter;

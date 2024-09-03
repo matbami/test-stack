@@ -15,7 +15,7 @@ import {
   import User from './user.model';
   import Question from './question.model';
   import Answer from './answer.model';
-  import { VoteEnum,TargetTypeEnum } from '../helper/enum';
+  import { Vote,TargetType } from '../helper/enum';
   
   @Table
   class Rating extends Model<Rating> {
@@ -28,7 +28,7 @@ import {
     id: string;
   
     @Column({
-      type: DataType.ENUM(VoteEnum.UPVOTE, VoteEnum.DOWNVOTE),
+      type: DataType.ENUM(Vote.UPVOTE, Vote.DOWNVOTE),
       allowNull: false,
     })
     value: string;
@@ -44,7 +44,7 @@ import {
     user: User;
   
     @Column({
-      type: DataType.ENUM(TargetTypeEnum.QUESTION,TargetTypeEnum.ANSWER),
+      type: DataType.ENUM(TargetType.QUESTION,TargetType.ANSWER),
       allowNull: false,
     })
     targetType: string;

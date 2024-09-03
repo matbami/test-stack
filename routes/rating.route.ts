@@ -1,47 +1,61 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { validate} from '../middleware/validations';
-import authenticate from '../middleware/auth.middleware';
-import { createAnswerSchema, updateAnswerSchema } from '../validations/answer.validation';
-import { RatingService } from '../services/ratings.service';
-import { RatingController } from '../controllers/rating.controller';
-import { createRatingSchema } from '../validations/rating.validation';
-
-
+import { Router, Request, Response, NextFunction } from "express";
+import { validate, validateQuery } from "../middleware/validations";
+import authenticate from "../middleware/auth.middleware";
+import {
+  createRatingSchema,
+  ratingSchema,
+} from "../validations/rating.validation";
+import { RatingService } from "../services/ratings.service";
+import { RatingController } from "../controllers/rating.controller";
 
 const ratingRouter = Router();
-const ratingService = new RatingService(); // Create an instance of UserService
-const ratingController = new RatingController(ratingService)
+const ratingService = new RatingService();
+const ratingController = new RatingController(ratingService);
 
 /**
- * @route POST /api/auth/register
- * @desc Register a new user (private)
+ * @route POST /api/ratings
+ * @desc Create a new rating (authenticated)
  */
-ratingRouter.post('', authenticate, validate(createRatingSchema),(req:Request, res: Response, next: NextFunction) =>
-ratingController.createRating(req, res, next));
+ratingRouter.post(
+  "",
+  authenticate,
+  validate(createRatingSchema),
+  (req: Request, res: Response, next: NextFunction) =>
+    ratingController.createRating(req, res, next)
+);
 
 /**
- * @route POST /api/auth/login
- * @desc Login user and return JWT(public)
+ * @route GET /api/ratings
+ * @desc Get ratings for a specific question or answer (public)
  */
-ratingRouter.get('/', (req:Request, res: Response, next: NextFunction) =>
-ratingController.getRatingForQuestionOrAnswer(req, res, next));
-
-
-/**
-* @route POST /api/auth/login
-* @desc Login user and return JWT
-*/
-ratingRouter.get('/count',authenticate, validate(updateAnswerSchema),(req:Request, res: Response, next: NextFunction) =>
-ratingController.getRatingCount(req, res, next));
-
+ratingRouter.get(
+  "/",
+  authenticate,
+  validateQuery(ratingSchema),
+  (req: Request, res: Response, next: NextFunction) =>
+    ratingController.getRatingForQuestionOrAnswer(req, res, next)
+);
 
 /**
-* @route POST /api/auth/login
-* @desc Login user and return JWT
-*/
-ratingRouter.delete('/:id', authenticate, (req:Request, res: Response, next: NextFunction) =>
-ratingController.deleteRating(req, res, next));
+ * @route GET /api/ratings/count
+ * @desc Get the count of ratings for a specific question or answer (authenticated)
+ */
+ratingRouter.get(
+  "/count",
+  validateQuery(ratingSchema),
+  (req: Request, res: Response, next: NextFunction) =>
+    ratingController.getRatingCount(req, res, next)
+);
 
-
+/**
+ * @route DELETE /api/ratings/:id
+ * @desc Delete a rating by ID (authenticated)
+ */
+ratingRouter.delete(
+  "/:id",
+  authenticate,
+  (req: Request, res: Response, next: NextFunction) =>
+    ratingController.deleteRating(req, res, next)
+);
 
 export default ratingRouter;
