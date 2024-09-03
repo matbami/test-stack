@@ -6,21 +6,42 @@ This project is a StackOverflow clone that allows users to register, authenticat
 
 ## **Table of Contents**
 
-1. [Database Setup](#database-setup)
-2. [Installation and Configuration](#installation-and-configuration)
+1. [Installation and Configuration](#installation-and-configuration)
+2. [Database Setup](#database-setup)
 3. [Assumptions Made](#assumptions-made)
-4. [Uncovered Requirements](#uncovered-requirements)
-5. [Source Code Preparation](#source-code-preparation)
-6. [Testing](#testing)
-7. [Issues Faced](#issues-faced)
-8. [Constructive Feedback](#constructive-feedback)
-9. [Submission](#submission)
+4. [Source Code Preparation](#source-code-preparation)
+5. [Testing](#testing)
+6. [Issues Faced](#issues-faced)
+7. [Documentation](#documentation)
+
+
+
+## **1. Installation and Configuration**
+
+### **Prerequisites**
+
+- **Node.js**: Ensure you have Node.js (v14.x or higher) installed.
+- **MySQL**: Install MySQL for database management.
+
+### **Installing Node.js Dependencies**
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://gitlab.com/kora-assessment/be-ayobami-adeleke.git
+    ```
+2. **Install Node.js Dependencies:**
+   ```bash
+   npm install 
+    ```
+### **Environment configuration**
+1. create a .env file and copy the content of the env.sample file then add your environment variables.
+2. ```bash
+   npm start
+    ```
 
 ---
 
-
-
-## **1. Database Setup**
+## **2. Database Setup**
 
 ### **Creating and Initializing the Database**
 
@@ -45,30 +66,6 @@ This project is a StackOverflow clone that allows users to register, authenticat
      ```
 
 ---
-
-## **2. Installation and Configuration**
-
-### **Prerequisites**
-
-- **Node.js**: Ensure you have Node.js (v14.x or higher) installed.
-- **MySQL**: Install MySQL for database management.
-
-### **Installing Node.js Dependencies**
-
-1. **Clone the Repository:**
-   ```bash
-   git clone <https://gitlab.com/kora-assessment/be-ayobami-adeleke.git>
-    ```
-2. **Install Node.js Dependencies:**
-   ```bash
-   npm install <https://gitlab.com/kora-assessment/be-ayobami-adeleke.git>
-    ```
-### **Environment configuration**
-1. create a .env file and copy the content of the env.sample file then add your environment variables.
-2.    ```bash
-   npm start
-    ```
-
 
 ## **3. Assumptions Made**
 
@@ -115,7 +112,7 @@ npm run test:coverage
 
 ## **7. Documentation**
 
-Comprehensive documentation of the API endpoints is available on Postman. You can access it at: [Postman Documentation](<insert-link>)
+Comprehensive documentation of the API endpoints is available on Postman. You can access it at: [Postman Documentation](https://documenter.getpostman.com/view/5091328/2sAXjNXWDe)
 
 
 
