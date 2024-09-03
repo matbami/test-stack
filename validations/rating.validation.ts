@@ -6,3 +6,8 @@ export const createRatingSchema = Joi.object({
   value: Joi.string().required()
 });
 
+export const ratingSchema = Joi.object({
+    targetId: Joi.string().required(),
+    targetType: Joi.string().required(),
+});
+

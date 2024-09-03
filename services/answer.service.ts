@@ -16,33 +16,35 @@ export class AnswerService {
   private subscriptionService: SubscriptionService;
   private userService: UserService;
   private questionService: QuestionService;
+
   constructor(
     subscriptionService: SubscriptionService,
     userService: UserService,
     questionService: QuestionService
   ) {
     this.subscriptionService = subscriptionService;
+    this.userService = userService;
+    this.questionService = questionService;
     this.answer = Answer;
-    (this.userService = userService), (this.questionService = questionService);
   }
 
-  async createAnswer(Answer: AnswerInterface) {
-    const answer = await this.answer.create(Answer);
-    //check if user is subscribed to that question, if yes, send notification
+  async createAnswer(answerData: AnswerInterface) {
+    const answer = await this.answer.create(answerData);
 
     const subscription =
       await this.subscriptionService.getSubscriptionByQuestionId(
-        Answer.questionId,
-        Answer.userId
+        answerData.questionId,
+        answerData.userId
       );
 
     if (subscription) {
-      // send mail
-      const { email } = await this.userService.getUserbyId(Answer.userId);
-      const { title, body } = await this.questionService.getOneQuestion(
-        Answer.questionId
+      const user = await this.userService.getUserById(answerData.userId);
+      const question = await this.questionService.getOneQuestion(
+        answerData.questionId
       );
-      sendAnswerNotificationEmail(email, title, body);
+
+      // Send notification email
+      sendAnswerNotificationEmail(user.email, question.title, question.body);
     }
 
     return answer;
@@ -52,19 +54,10 @@ export class AnswerService {
     const { page, limit, offset } = Paginate(pagination);
 
     const [total, answers] = await Promise.all([
-      this.answer.count({
-        where: {
-          questionId,
-        },
-      }),
-      this.answer.findAll({
-        where: {
-          questionId,
-        },
-        limit,
-        offset,
-      }),
+      this.answer.count({ where: { questionId } }),
+      this.answer.findAll({ where: { questionId }, limit, offset }),
     ]);
+
     return {
       page,
       limit,
@@ -74,22 +67,21 @@ export class AnswerService {
   }
 
   async updateAnswer(id: string, updateDetails: AnswerUpdateInterface) {
-    const answer: Answer = await this.answer.findByPk(id);
+    const answer = await this.answer.findByPk(id);
     if (!answer) {
       throw new AppError("Answer not found", 404);
     }
 
-    answer.update(updateDetails);
-
+    await answer.update(updateDetails);
     return answer;
   }
 
   async deleteAnswer(id: string) {
-    const answer: Answer = await this.answer.findByPk(id);
+    const answer = await this.answer.findByPk(id);
     if (!answer) {
       throw new AppError("Answer not found", 404);
     }
 
-    answer.destroy();
+    await answer.destroy();
   }
 }

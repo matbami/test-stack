@@ -7,7 +7,7 @@ import {
   import { AppError } from "../helper/errorHandler";
   import Answer from "../models/answer.model";
 import Rating from "../models/rating.model";
-import { VoteEnum } from "../helper/enum";
+import { Vote } from "../helper/enum";
   
   export class RatingService {
     private rating: typeof Rating;
@@ -48,7 +48,7 @@ import { VoteEnum } from "../helper/enum";
           where: {
             targetId,
             targetType,
-            value: VoteEnum.UPVOTE
+            value: Vote.UPVOTE
           },
 
 
@@ -58,7 +58,7 @@ import { VoteEnum } from "../helper/enum";
             where: {
               targetId,
               targetType,
-              value: VoteEnum.DOWNVOTE
+              value: Vote.DOWNVOTE
             },
         });
 

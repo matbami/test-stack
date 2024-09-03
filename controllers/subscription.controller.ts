@@ -7,10 +7,12 @@ export class SubscriptionController {
 
   async createSubscription(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const body = req.body;
-      body.userId = req.user.id;
-      const subscription = await this.subscriptionService.createSubscription(req.body);
-      return res.json(subscription);
+      const body = { ...req.body, userId: req.user.id };
+      const subscription = await this.subscriptionService.createSubscription(body);
+      return res.status(201).json({
+        message: "Subscription created successfully",
+        data: subscription,
+      });
     } catch (error) {
       next(error);
     }
@@ -19,10 +21,11 @@ export class SubscriptionController {
   async unsubscribe(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       await this.subscriptionService.unSubscribe(req.params.id);
-      return res.json({ message: "Subscription cancelled" });
+      return res.status(200).json({
+        message: "Subscription cancelled successfully",
+      });
     } catch (error) {
       next(error);
     }
   }
-
 }
