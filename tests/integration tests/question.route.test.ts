@@ -21,6 +21,7 @@ describe("Question Routes", () => {
       .send({ email: "test@example.com", password: "password" });
 
     token = res.body.data.token;
+    
   });
 
   it("POST /api/v1/questions should create a new question", async () => {

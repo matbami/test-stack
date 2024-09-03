@@ -1,12 +1,14 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_USER || "smtp.ethereal.email",
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: false, 
+  service: process.env.SMTP_SERVICE,
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.PORT),
+  secure: true,
   auth: {
-    user: process.env.SMTP_USER || "bruce.hartmann@ethereal.email",
-    pass: process.env.SMTP_PASSWORD || "PerPmR8B4uembcYuCu",
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
   },
 });
 
@@ -26,7 +28,7 @@ export async function sendAnswerNotificationEmail(
 
   try {
     const info = await transporter.sendMail({
-      from: '"StackOverflow Clone" <bruce.hartmann@ethereal.email>', // sender address
+      from: '"StackOverflow Clone" <no-reply@stackoverlow>', // sender address
       ...mailOptions,
     });
 
